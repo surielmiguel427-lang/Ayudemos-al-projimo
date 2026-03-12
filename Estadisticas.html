@@ -2,23 +2,249 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Estadísticas - Ayudemos al Prójimo</title>
+    <title>Estadísticas</title>
 </head>
-<body style="background-color: #FFFFFF; color: #1A3922; font-family: sans-serif; margin: 0;">
-
-    <header style="background-color: #1A3922; color: white; padding: 20px; text-align: center;">
-        <h1>REALIDAD SOCIOECONÓMICA</h1>
-        <nav>
-            <a href="index.html" style="color: white;">Inicio</a> | 
-            <a href="proyecto.html" style="color: white;">Proyecto</a> | 
-            <a href="estadisticas.html" style="color: white;">Estadísticas</a> | 
-            <a href="ayudar.html" style="color: white;">Cómo Ayudar</a>
-        </nav>
+<body>
+    <header>
+        <nav><ul><li><a href="index.html">Volver</a></li></ul></nav>
+        <h1>Realidad Socioeconómica</h1>
     </header>
 
-    <footer style="text-align: center; padding: 40px;">
-        <p>Misión ILAC & Colegio Intelecto - 2026</p>
-    </footer>
 
-</body>
-</html>
+<main>
+    <section class="dashboard-unified">
+        <style>
+            .dashboard-unified {
+                font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+                background-color: #f0f2f5;
+                padding: 40px 20px;
+                color: #1e293b;
+            }
+
+            .report-card {
+                max-width: 1000px;
+                margin: 0 auto;
+                background: white;
+                border-radius: 20px;
+                box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+                overflow: hidden;
+                border: 1px solid #e2e8f0;
+            }
+
+            /* Encabezado Principal */
+            .main-header {
+                background: linear-gradient(135deg, #15803d 0%, #166534 100%);
+                color: white;
+                padding: 40px 30px;
+                text-align: center;
+            }
+
+            .main-header h1 { margin: 0; font-size: 32px; font-weight: 800; letter-spacing: -0.5px; }
+            .main-header p { opacity: 0.9; margin: 10px 0 0; font-size: 18px; }
+
+            .content-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 25px;
+                padding: 30px;
+            }
+
+            .sub-card {
+                border: 1px solid #f1f5f9;
+                background: #ffffff;
+                border-radius: 16px;
+                padding: 25px;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+                display: flex;
+                flex-direction: column;
+            }
+
+            .full-width { grid-column: span 2; }
+
+            /* Etiquetas de Estado */
+            .badge {
+                padding: 6px 14px;
+                border-radius: 99px;
+                font-size: 11px;
+                font-weight: 700;
+                display: inline-block;
+                margin-bottom: 15px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            /* --- GRÁFICO DE BARRAS: TINAJITA --- */
+            .chart-container {
+                height: 220px;
+                display: flex;
+                align-items: flex-end;
+                justify-content: space-around;
+                border-bottom: 2px solid #e2e8f0;
+                margin: 25px 0 15px;
+                padding-bottom: 5px;
+                background-image: linear-gradient(#f8fafc 1px, transparent 1px);
+                background-size: 100% 44px;
+            }
+
+            .bar {
+                width: 50px;
+                background: linear-gradient(to top, #1e3a8a, #3b82f6);
+                border-radius: 6px 6px 0 0;
+                position: relative;
+                transition: transform 0.3s ease;
+            }
+
+            .bar:hover { transform: scaleX(1.1); }
+
+            .bar-value {
+                position: absolute;
+                top: -25px;
+                width: 100%;
+                text-align: center;
+                font-size: 12px;
+                font-weight: 800;
+                color: #1e3a8a;
+            }
+
+            .bar-label { font-size: 10px; text-align: center; margin-top: 10px; font-weight: 700; color: #64748b; }
+
+            /* --- GRÁFICO DONUT: LA ESCALERA 2024 --- */
+            .donut-flex {
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                margin-top: 10px;
+            }
+
+            .donut {
+                width: 130px;
+                height: 130px;
+                border-radius: 50%;
+                background: conic-gradient(#3b82f6 0% 45%, #ef4444 45% 75%, #f59e0b 75% 90%, #10b981 90% 100%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .donut-inner {
+                width: 85px;
+                height: 85px;
+                background: white;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 800;
+                font-size: 13px;
+                text-align: center;
+                color: #1e293b;
+            }
+
+            /* --- TABLA E IMPACTO: LOS HIGOS --- */
+            .impact-box {
+                display: grid;
+                grid-template-columns: 1.2fr 1fr;
+                gap: 30px;
+                align-items: center;
+            }
+
+            table { width: 100%; border-collapse: collapse; font-size: 14px; }
+            td { padding: 12px 8px; border-bottom: 1px solid #f1f5f9; }
+            .td-title { font-weight: 700; color: #475569; }
+
+            .cta-banner {
+                background: #fff7ed;
+                border: 2px dashed #f97316;
+                padding: 25px;
+                border-radius: 16px;
+                text-align: center;
+            }
+
+            .btn-action {
+                background: #f97316;
+                color: white;
+                padding: 12px 24px;
+                border-radius: 10px;
+                font-weight: 800;
+                display: inline-block;
+                margin-top: 15px;
+                text-decoration: none;
+                box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3);
+            }
+        </style>
+
+        <div class="report-card">
+            <header class="main-header">
+                <h1>Trayectoria de Transparencia: 2024 - 2026</h1>
+                <p>Nuestros resultados en <b>La Escalera</b> y <b>Los Higos</b> avalan nuestro compromiso en <b>Tinajita</b>.</p>
+            </header>
+
+            <div class="content-grid">
+                
+                <div class="sub-card">
+                    <span class="badge" style="background:#fff7ed; color:#c2410c; border: 1px solid #fdba74;">PRÓXIMO GRAN RETO 2026</span>
+                    <h2 style="font-size:20px; margin: 0; color: #1e3a8a;">Tinajita, Santiago</h2>
+                    <p style="font-size: 13px; color: #64748b; margin: 5px 0;">Presupuesto base para intervención de mayor envergadura.</p>
+                    
+                    <div class="chart-container">
+                        <div class="bar" style="height: 95%;"><div class="bar-value">650k</div></div>
+                        <div class="bar" style="height: 45%; background: #ef4444;"><div class="bar-value">220k</div></div>
+                        <div class="bar" style="height: 35%; background: #f59e0b;"><div class="bar-value">150k</div></div>
+                        <div class="bar" style="height: 30%; background: #10b981;"><div class="bar-value">120k</div></div>
+                    </div>
+                    <div style="display:flex; justify-content:space-around;">
+                        <span class="bar-label">MATERIAL</span>
+                        <span class="bar-label">M. OBRA</span>
+                        <span class="bar-label">LOGÍSTICA</span>
+                        <span class="bar-label">REF.</span>
+                    </div>
+                </div>
+
+                <div class="sub-card">
+                    <span class="badge" style="background:#dcfce7; color:#15803d; border: 1px solid #86efac;">LOGRADO EN 2024</span>
+                    <h2 style="font-size:20px; margin: 0; color: #1e293b;">La Escalera Arriba</h2>
+                    <p style="font-size: 13px; color: #64748b; margin: 5px 0;">Ejecución presupuestaria auditada en Altamira.</p>
+
+                    <div class="donut-flex">
+                        <div class="donut">
+                            <div class="donut-inner">RD$ 551,250<br><span style="font-weight:400; font-size:10px;">Auditado</span></div>
+                        </div>
+                        <div style="font-size: 12px; line-height: 1.8;">
+                            <p><span style="color:#3b82f6">●</span> Materiales: 45%</p>
+                            <p><span style="color:#ef4444">●</span> Mano Obra: 30%</p>
+                            <p><span style="color:#f59e0b">●</span> Logística: 15%</p>
+                            <p><span style="color:#10b981">●</span> Reforestación: 10%</p>
+                        </div>
+                    </div>
+                    <p style="font-size: 12px; color: #64748b; margin-top: 15px; font-style: italic; border-top: 1px solid #f1f5f9; padding-top: 10px;">
+                        "Proyecto finalizado con éxito total y cuentas claras ante la comunidad."
+                    </p>
+                </div>
+
+                <div class="sub-card full-width">
+                    <div class="impact-box">
+                        <div>
+                            <span class="badge" style="background:#e0e7ff; color:#4338ca; border: 1px solid #c7d2fe;">PROYECTO TERMINADO</span>
+                            <h2 style="font-size: 22px; margin: 5px 0; color: #1e293b;">Impacto Real en Los Higos</h2>
+                            <p style="font-size: 14px; color: #64748b; margin-bottom: 15px;">Resultados tangibles de la última intervención:</p>
+                            <table>
+                                <tr><td class="td-title">Inversión Materiales:</td><td>RD$ 314,665</td></tr>
+                                <tr><td class="td-title">Mano de Obra y Eng.:</td><td>RD$ 80,000</td></tr>
+                                <tr><td class="td-title">Reforestación:</td><td>600 Plantas (Limón/Cacao)</td></tr>
+                                <tr><td class="td-title">Estado de Fondos:</td><td style="color:#15803d; font-weight:800;">100% Ejecutado - 0 Deudas</td></tr>
+                            </table>
+                        </div>
+                        
+                        <div class="cta-banner">
+                            <h3 style="margin: 0; color: #7c2d12; font-size: 20px;">Tinajita Santiago nos necesita</h3>
+                            <p style="font-size: 14px; color: #9a3412; margin: 12px 0;">
+                                Hemos demostrado que cada peso se convierte en cemento, madera y árboles. En <b>Tinajita</b>, la meta es más ambiciosa. 
+                            </p>
+                            <a href="#" class="btn-action">¡ÚNETE A ESTA CAUSA!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
