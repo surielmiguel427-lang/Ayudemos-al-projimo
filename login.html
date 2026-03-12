@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Login - Ayudemos al Prójimo</title>
+</head>
+
+<body style="background:#FFFFFF;color:#1A3922;font-family:sans-serif;margin:0;">
+
+<header style="background:#1A3922;color:white;padding:20px;text-align:center;">
+<h1>Acceso de Colaboradores</h1>
+
+<nav>
+<a href="index.html" style="color:white;">Inicio</a> | 
+<a href="proyecto.html" style="color:white;">Proyecto</a> | 
+<a href="estadisticas.html" style="color:white;">Estadísticas</a> | 
+<a href="ayudar.html" style="color:white;">Cómo Ayudar</a>
+</nav>
+
+</header>
+
+
+<main style="max-width:600px;margin:auto;padding:40px;">
+
+<section style="background:#f3f4f6;padding:30px;border-radius:15px;">
+
+<h2 style="text-align:center;">Iniciar Sesión</h2>
+
+<form id="loginForm">
+
+<label>Correo</label><br>
+<input type="email" id="loginCorreo"
+style="width:100%;padding:10px;margin-bottom:15px;" required>
+
+<label>Contraseña</label><br>
+<input type="password" id="loginPassword"
+style="width:100%;padding:10px;margin-bottom:20px;" required>
+
+<button type="submit"
+style="background:#78350F;color:white;padding:12px 25px;border:none;border-radius:10px;">
+Iniciar Sesión
+</button>
+
+</form>
+
+<p id="loginMensaje" style="margin-top:20px;"></p>
+
+</section>
+
+
+<section style="background:#fefce8;padding:30px;border-radius:15px;margin-top:30px;">
+
+<h2 style="text-align:center;">Crear Cuenta</h2>
+
+<form id="registroForm">
+
+<label>Nombre</label><br>
+<input type="text" id="registroNombre"
+style="width:100%;padding:10px;margin-bottom:15px;" required>
+
+<label>Correo</label><br>
+<input type="email" id="registroCorreo"
+style="width:100%;padding:10px;margin-bottom:15px;" required>
+
+<label>Contraseña</label><br>
+<input type="password" id="registroPassword"
+style="width:100%;padding:10px;margin-bottom:20px;" required>
+
+<button type="submit"
+style="background:#1A3922;color:white;padding:12px 25px;border:none;border-radius:10px;">
+Crear Cuenta
+</button>
+
+</form>
+
+<p id="registroMensaje"></p>
+
+</section>
+
+</main>
+
+<footer style="text-align:center;padding:40px;">
+<p>Misión ILAC & Colegio Intelecto - 2026</p>
+</footer>
+
+<script src="js.js"></script>
+
+</body>
+</html>
