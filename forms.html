@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <title>Donar - Ayudemos al Prójimo</title>
+</head>
+<body style="background-color: #FFFFFF; color: #1A3922; font-family: sans-serif; margin: 0;">
+    
+    <header style="background-color: #1A3922; color: white; padding: 20px; text-align: center;">
+        <h1>AYUDEMOS AL PRÓJIMO</h1>
+        <nav>
+            <a href="index.html" style="color: white;">Inicio</a> | 
+            <a href="proyecto.html" style="color: white;">Proyecto</a> | 
+            <a href="estadisticas.html" style="color: white;">Estadísticas</a> | 
+            <a href="ayudar.html" style="color: white;">Cómo Ayudar</a> |
+            <a href="forms.html" style="color: white;">Formulario para donar</a>
+        </nav>
+    </header>
+
+    <main style="padding: 40px 20px;">
+        <section style="max-width: 600px; margin: 0 auto; border: 2px solid #1A3922; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            
+            <div style="background-color: #1A3922; color: white; padding: 15px; text-align: center;">
+                <h2 style="margin: 0;">Formulario de Donación</h2>
+                <p style="margin: 5px 0 0; font-size: 0.9em;">Tu ayuda transforma La Tinajita</p>
+            </div>
+
+            <form style="padding: 30px; display: flex; flex-direction: column; gap: 20px;">
+                
+                <div>
+                    <label style="display: block; font-weight: bold; margin-bottom: 8px;">Nombre Completo:</label>
+                    <input type="text" name="nombre" placeholder="Ej. Juan Pérez" required style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+                </div>
+
+                <div>
+                    <label style="display: block; font-weight: bold; margin-bottom: 8px;">¿Qué deseas donar?</label>
+                    <select name="tipo_donacion" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; background: white;">
+                        <option value="alimentos">Alimentos no perecederos</option>
+                        <option value="árboles">Arboles de cacao/de Limoón, etc..</option>
+                        <option value="materiales de construcción">Cemento/Mader/Materiales de construcción</option>
+                        <option value="económico">Aporte Económico</option>
+                        <option value="otro">Otros</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label style="display: block; font-weight: bold; margin-bottom: 8px;">Cantidad / Descripción:</label>
+                    <textarea name="descripcion" rows="3" placeholder="Detalla brevemente lo que vas a donar..." style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; resize: none; box-sizing: border-box;"></textarea>
+                </div>
+
+                <div>
+                    <label style="display: block; font-weight: bold; margin-bottom: 8px;">Teléfono de Contacto:</label>
+                    <input type="tel" name="telefono" placeholder="809-000-0000" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+                </div>
+
+                <button type="submit" style="background-color: #78350F; color: white; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1em; font-weight: bold; transition: 0.3s;">
+                    Registrar Donación
+                </button>
+            </form>
+        </section>
+    </main>
+
+    <footer style="text-align: center; padding: 20px; color: #555;">
+        <p>Misión ILAC & Colegio Intelecto - 2026</p>
+    </footer>
+
+</body>
+</html>
