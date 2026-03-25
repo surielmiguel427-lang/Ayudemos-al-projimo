@@ -2,77 +2,307 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyecto - Ayudemos al Prójimo</title>
-</head>
-<body style="background-color: #FFFFFF; color: #1A3922; font-family: sans-serif; margin: 0;">
-
-    <header style="background-color: #1A3922; color: white; padding: 20px; text-align: center;">
-        <h1>AYUDEMOS AL PRÓJIMO</h1>
-        <nav>
-             <a href="index.html" style="color: white;">Inicio</a> | 
-            <a href="proyecto.html" style="color: white;">Proyecto</a> | 
-            <a href="estadisticas.html" style="color: white;">Estadísticas</a> | 
-            <a href="ayudar.html" style="color: white;">Cómo Ayudar</a> |
-            <a href="forms.html" style="color: white;">Formulario para donar</a>
-        </nav>
-    </header>
-
-    <main style="padding: 20px; max-width: 1000px; margin: 0 auto;">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        /* ESTILOS BASE */
+        body { 
+            background-color: #FFFFFF; 
+            color: #1A3922; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            overflow-x: hidden;
+        }
         
-        <section style="text-align: center; padding: 20px; background-color: #f4f4f4; border-radius: 15px; margin-bottom: 30px;">
-            <h2 style="color: #1A3922;">Misión ILAC</h2>
-            <p style="font-size: 1.1em; line-height: 1.6; max-width: 800px; margin: 0 auto;">
-                Es una institución sin fines de lucro que promueve el desarrollo integral del ser humano, contribuyendo con la disminución de las condiciones que conforman las diversas dimensiones de la pobreza.
+        header {
+            background-color: #1A3922;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        header h1 { margin: 10px 0; font-size: 1.5rem; text-align: center; }
+
+        nav { display: flex; gap: 15px; }
+        nav a { color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem; transition: 0.3s; }
+        nav a:hover { color: #BBF7D0; }
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            background: none;
+            border: none;
+            padding: 10px;
+            position: absolute;
+            right: 15px;
+            top: 20px;
+        }
+        .menu-toggle span { display: block; width: 25px; height: 3px; background-color: white; }
+
+        /* SECCIÓN HERO (Fondo con foto del equipo) */
+       
+    /* SECCIÓN HERO SIMPLIFICADA */
+.hero-community {
+    position: relative;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    background: #1A3922; 
+    overflow: hidden;
+}
+
+/* La imagen ahora se controla aquí */
+.hero-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Hace que la foto cubra todo el espacio sin deformarse */
+    z-index: 1;
+    animation: fadeInImage 3s forwards;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(26, 57, 34, 0.6); 
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    padding: 20px;
+}
+
+
+        /* DISEÑO RESPONSIVO */
+        @media (max-width: 768px) {
+            header { flex-direction: row; justify-content: flex-start; padding: 15px; }
+            .menu-toggle { display: flex; }
+            nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%; left: 0; width: 100%;
+                background-color: #1A3922;
+                z-index: 1000;
+                padding: 10px 0;
+            }
+            nav.active { display: flex; }
+        }
+
+        /* CONTENIDO PRINCIPAL */
+        main { padding: 40px 20px; max-width: 1000px; margin: 0 auto; }
+        
+        .mision-box {
+            text-align: center;
+            padding: 30px;
+            background-color: #f8fafc;
+            border-radius: 20px;
+            margin-bottom: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .objetivos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .card { 
+            padding: 25px; 
+            border-radius: 15px; 
+            text-align: center; 
+            border: 1px solid transparent; 
+            transition: 0.4s;
+            cursor: default;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* SECCIÓN DE TEXTO ANIMADO (Single box) */
+        .animated-text-container {
+            background: #F0FDF4;
+            border: 2px solid #BBF7D0;
+            border-radius: 15px;
+            padding: 30px;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin: 20px 0;
+        }
+
+        .pasos-box {
+            background-color: #ffffff;
+            padding: 30px;
+            border-left: 5px solid #1A3922;
+            text-align: left;
+            max-width: 600px;
+            margin: 40px auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+
+        .pasos-box:hover {
+            border-left-color: #22c55e;
+            transform: scale(1.02);
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px;
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        /* ANIMACIONES DE APARICIÓN AL HACER SCROLL */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+    <h1>AYUDEMOS AL PRÓJIMO</h1>
+    <button class="menu-toggle" id="hamburguesa">
+        <span></span><span></span><span></span>
+    </button>
+    <nav id="menu-navegacion">
+        <a href="index.html">Inicio</a>
+        <a href="proyecto.html">Proyecto</a>
+        <a href="estadisticas.html">Estadísticas</a>
+        <a href="ayudar.html">Cómo Ayudar</a>
+        <a href="forms.html">Formulario</a>
+    </nav>
+</header>
+
+    <section class="hero-community">
+    <img src="img/ilacintelecto (15 of 36).jpg" alt="Equipo" class="hero-img"> <div class="hero-overlay"></div>
+    <div class="hero-content animate__animated animate__zoomIn">
+        <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Misión ILAC</h2>
+        <p style="font-size: 1.2rem; max-width: 600px;">Desarrollo integral del ser humano y lucha contra la pobreza.</p>
+    </div>
+</section>
+
+    <main>
+        <section class="mision-box reveal">
+            <h2 style="color: #1A3922;">Desarrollo Integral</h2>
+            <p style="font-size: 1.1em; line-height: 1.6;">
+                Es una institución sin fines de lucro que promueve el desarrollo integral del ser humano, contribuyendo con la disminución de las condiciones de pobreza.
             </p>
         </section>
 
-        <section style="margin-bottom: 40px;">
-            <h2 style="text-align: center; border-bottom: 2px solid #1A3922; padding-bottom: 10px;">Objetivos de "Ayudemos al Prójimo"</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">
-                
-                <div style="background-color: #FDF2F8; padding: 20px; border-radius: 15px; text-align: center; border: 1px solid #FBCFE8;">
-                    <p>Hacer conciencia de la necesidad y realidad que viven millones de dominicanos alrededor de nosotros.</p>
-                </div>
+        <section class="reveal">
+            <h2 style="text-align: center; border-bottom: 2px solid #1A3922; padding-bottom: 10px;">Objetivos del Proyecto</h2>
+            
+            <div class="animated-text-container" id="text-switcher">
+                Cargando objetivos...
+            </div>
 
-                <div style="background-color: #F0FDF4; padding: 20px; border-radius: 15px; text-align: center; border: 1px solid #BBF7D0;">
-                    <p>Realizar un proyecto de recaudación de fondos y solicitud de patrocinio para reconstrucción y reparación de las casitas de la comunidad.</p>
+            <div class="objetivos-grid">
+                <div class="card animate__animated" style="background-color: #FDF2F8; border-color: #FBCFE8;">
+                    <p>Concientización sobre la realidad dominicana.</p>
                 </div>
-
-                <div style="background-color: #FFFBEB; padding: 20px; border-radius: 15px; text-align: center; border: 1px solid #FEF3C7;">
-                    <p>Desarrollar valores como la empatía, la humildad, generosidad y trabajo en equipo.</p>
+                <div class="card animate__animated" style="background-color: #F0FDF4; border-color: #BBF7D0;">
+                    <p>Recaudación para reparación de viviendas.</p>
                 </div>
-
-                <div style="background-color: #EFF6FF; padding: 20px; border-radius: 15px; text-align: center; border: 1px solid #DBEAFE;">
-                    <p>Llevar a cabo un día de campo para colaborar con todas las necesidades y mano de obra que requiere este proyecto.</p>
+                <div class="card animate__animated" style="background-color: #FFFBEB; border-color: #FEF3C7;">
+                    <p>Fomento de valores como la empatía y humildad.</p>
                 </div>
-
+                <div class="card animate__animated" style="background-color: #EFF6FF; border-color: #DBEAFE;">
+                    <p>Mano de obra y trabajo comunitario directo.</p>
+                </div>
             </div>
         </section>
 
-        <hr style="border: 0; height: 1px; background: #ddd; margin: 40px 0;">
-
-        <section style="text-align: center;">
-            <h2 style="font-style: italic;">¿CÓMO SE LLEVARÁ A CABO ESTE PROYECTO?</h2>
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 20px;">
-                
-                <div style="flex: 1; min-width: 300px; background-color: #f9f9f9; padding: 20px; border-left: 5px solid #1A3922; text-align: left;">
-                    <ul style="list-style-type: square; line-height: 1.8;">
-                        <li>Actualmente se recolectan fondos y materiales a fines de reconstrucción.</li>
-                        <li>Presentación formal en empresas para la recaudación de fondos.</li>
-                        <li>El proyecto está planificado a desarrollar en tres años.</li>
-                        <li><strong>Fecha de ejecución:</strong> 24 de abril del 2026 en La Tinajita.</li>
-                    </ul>
-                </div>
-
+        <section class="reveal" style="text-align: center; margin-top: 60px;">
+            <h2 style="font-style: italic;">¿CÓMO SE LLEVARÁ A CABO?</h2>
+            <div class="pasos-box">
+                <ul style="list-style-type: none; line-height: 2; padding: 0;">
+                    <li>✅ Recolección de fondos y materiales.</li>
+                    <li>✅ Alianzas con empresas patrocinadoras.</li>
+                    <li>✅ Proyecto a largo plazo (3 años).</li>
+                    <li>📍 <strong>Ejecución:</strong> 24 de abril, La Tinajita.</li>
+                </ul>
             </div>
         </section>
-
     </main>
 
-    <footer style="text-align: center; padding: 40px; color: #666;">
+    <footer class="reveal">
         <p>Misión ILAC & Colegio Intelecto - 2026</p>
     </footer>
 
+    <script>
+        // Lógica del menú móvil
+        const botonMenu = document.getElementById('hamburguesa');
+        const listaMenu = document.getElementById('menu-navegacion');
+        botonMenu.addEventListener('click', () => {
+            listaMenu.classList.toggle('active');
+        });
+
+        // Animación de texto que cambia (Objetivos)
+        const info = [
+            "Hacer conciencia de la realidad de millones de dominicanos.",
+            "Recaudar fondos para la reconstrucción de viviendas.",
+            "Desarrollar empatía, humildad y trabajo en equipo.",
+            "Ejecutar mano de obra directa en la comunidad de La Tinajita."
+        ];
+        let count = 0;
+        const textElement = document.getElementById('text-switcher');
+
+        function changeText() {
+            textElement.style.opacity = 0;
+            setTimeout(() => {
+                textElement.innerHTML = info[count];
+                textElement.style.opacity = 1;
+                textElement.classList.add('animate__animated', 'animate__fadeIn');
+                count = (count + 1) % info.length;
+            }, 500);
+        }
+        setInterval(changeText, 3500);
+        changeText();
+
+        // Lógica de revelación al hacer scroll
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Ejecutar al cargar
+    </script>
 </body>
 </html>
