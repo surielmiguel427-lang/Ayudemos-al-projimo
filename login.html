@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso - Ayudemos al Prójimo</title>
+    <style>
+        /* ESTILOS BASE Y NAVEGACIÓN */
+        body { background-color: #FFFFFF; color: #1A3922; font-family: sans-serif; margin: 0; }
+        
+        header {
+            background-color: #1A3922; color: white; padding: 15px 20px;
+            display: flex; flex-direction: column; align-items: center; position: relative;
+        }
+
+        header h1 { margin: 10px 0; font-size: 1.4rem; text-align: center; }
+
+        nav { display: flex; gap: 15px; }
+        nav a { color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
+        
+        .menu-toggle {
+            display: none; flex-direction: column; cursor: pointer; gap: 5px;
+            background: none; border: none; padding: 10px; position: absolute; right: 15px; top: 15px;
+        }
+        .menu-toggle span { display: block; width: 25px; height: 3px; background-color: white; }
+
+        @media (max-width: 768px) {
+            header { flex-direction: row; justify-content: flex-start; padding: 15px; }
+            .menu-toggle { display: flex; }
+            nav {
+                display: none; flex-direction: column; position: absolute; top: 100%; left: 0;
+                width: 100%; background-color: #1A3922; z-index: 1000; padding: 10px 0; text-align: center;
+            }
+            nav.active { display: flex; }
+            nav a { padding: 12px; border-bottom: 1px solid #244d2e; width: 100%; }
+        }
+
+        /* ESTILOS DE FORMULARIO */
+        main { max-width: 500px; margin: auto; padding: 20px; }
+        section { padding: 25px; border-radius: 15px; margin-bottom: 30px; box-sizing: border-box; border: 1px solid #ddd; }
+        
+        .login-box { background: #f3f4f6; }
+        .register-box { background: #fefce8; border: 1px solid #78350F; }
+
+        label { font-weight: bold; display: block; margin-bottom: 5px; }
+        input {
+            width: 100%; padding: 12px; margin-bottom: 15px; 
+            border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box;
+        }
+
+        .btn-primary {
+            width: 100%; padding: 14px; border: none; border-radius: 10px;
+            font-weight: bold; cursor: pointer; font-size: 1rem;
+            background-color: #1A3922; color: white; transition: 0.3s;
+        }
+        .btn-primary:hover { background-color: #244d2e; }
+
+        /* Estilo para los mensajes de validación */
+        .msg { text-align: center; font-size: 0.9rem; margin-top: 10px; font-weight: bold; }
+
+        /* Widget de contador dinámico rápido */
+        .mini-stats { text-align: center; margin-bottom: 20px; padding: 10px; background: #e8f5e9; border-radius: 10px; }
+        #porcentaje { color: #1A3922; font-weight: bold; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Acceso de Colaboradores</h1>
+    <button class="menu-toggle" id="mobile-menu">
+        <span></span><span></span><span></span>
+    </button>
+    <nav id="nav-menu">
+        <a href="index.html">Inicio</a>
+        <a href="proyecto.html">Proyecto</a>
+        <a href="estadisticas.html">Estadísticas</a>
+        <a href="ayudar.html">Cómo Ayudar</a>
+    </nav>
+</header>
+
+<main>
+    <div class="mini-stats">
+        <p style="margin: 0; font-size: 0.8rem;">Impacto actual del proyecto:</p>
+        <span id="porcentaje">Cargando progreso...</span>
+        <div style="width: 100%; background: #ddd; height: 6px; border-radius: 3px; margin-top: 5px;">
+            <div id="barraProgreso" style="width: 0%; background: #1A3922; height: 100%; border-radius: 3px; transition: width 1s;"></div>
+        </div>
+    </div>
+
+    <section class="login-box">
+        <h2 style="text-align:center; margin-top: 0;">Iniciar Sesión</h2>
+        <form id="loginForm">
+            <label>Correo Electrónico</label>
+            <input type="email" id="loginCorreo" placeholder="ejemplo@correo.com" required>
+
+            <label>Contraseña</label>
+            <input type="password" id="loginPassword" placeholder="••••••••" required>
+
+            <button type="submit" class="btn-primary">Entrar al Panel</button>
+            <div id="loginMensaje" class="msg"></div>
+        </form>
+    </section>
+
+    <section class="register-box">
+        <h2 style="text-align:center; margin-top: 0; color: green;">Unirse como Colaborador</h2>
+        <form id="registroForm">
+            <label>Nombre Completo</label>
+            <input type="text" id="registroNombre" placeholder="Tu nombre" required>
+
+            <label>Correo Electrónico</label>
+            <input type="email" id="registroCorreo" placeholder="correo@ejemplo.com" required>
+
+            <label>Contraseña</label>
+            <input type="password" id="registroPassword" placeholder="Crea una contraseña" required>
+
+            <button type="submit" class="btn-primary" style="background-color: green;">Crear Cuenta</button>
+            <div id="registroMensaje" class="msg"></div>
+        </form>
+    </section>
+</main>
+
+<footer style="text-align: center; padding: 20px; color: #666; font-size: 0.8rem;">
+    Misión ILAC & Colegio Intelecto - 2026
+</footer>
+
+<script src="js/script.js"></script>
+<script>
+    // Lógica del menú móvil
+    document.getElementById('mobile-menu').addEventListener('click', () => {
+        document.getElementById('nav-menu').classList.toggle('active');
+    });
+</script>
+
+</body>
+</html>

@@ -1,111 +1,81 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", () => {
+    /* ==========================================
+       CONFIGURACIÓN Y ESTADO GLOBAL
+    ========================================== */
+    const META_DONACION = 1000000;
+    
+    // Función utilitaria para manejo de LocalStorage
+    const storage = {
+        get: (key) => JSON.parse(localStorage.getItem(key)) || [],
+        set: (key, data) => localStorage.setItem(key, JSON.stringify(data))
+    };
 
-    /* =======================
-       SISTEMA DE USUARIOS
-    ======================= */
-    const registroForm = document.getElementById("registroForm");
-    const loginForm = document.getElementById("loginForm");
-    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-
-    if (registroForm) {
-        registroForm.addEventListener("submit", function(e) {
-            e.preventDefault();
-            const nombre = document.getElementById("registroNombre").value;
-            const correo = document.getElementById("registroCorreo").value;
-            const password = document.getElementById("registroPassword").value;
-            const usuario = { nombre, correo, password };
-            usuarios.push(usuario);
-            localStorage.setItem("usuarios", JSON.stringify(usuarios));
-            document.getElementById("registroMensaje").innerText = "Cuenta creada correctamente.";
-            registroForm.reset();
-        });
-    }
-
-    if (loginForm) {
-        loginForm.addEventListener("submit", function(e) {
-            e.preventDefault();
-            const correo = document.getElementById("loginCorreo").value;
-            const password = document.getElementById("loginPassword").value;
-            const usuario = usuarios.find(u => u.correo === correo && u.password === password);
-            if (usuario) {
-                document.getElementById("loginMensaje").innerText = "Bienvenido " + usuario.nombre;
-            } else {
-                document.getElementById("loginMensaje").innerText = "Correo o contraseña incorrectos.";
-            }
-        });
-    }
-
-    /* =======================
-       SISTEMA DE DONACIONES (Barra de Progreso)
-    ======================= */
-    const form = document.getElementById("donacionForm");
-    const lista = document.getElementById("listaDonantes");
-    let donantes = JSON.parse(localStorage.getItem("donantes")) || [];
-
-    if (form) {
-        mostrarDonantes();
-        actualizarProgreso();
-        form.addEventListener("submit", function(e) {
-            e.preventDefault();
-            const nombre = document.getElementById("nombre").value;
-            const correo = document.getElementById("correo").value;
-            const empresa = document.getElementById("empresa").value;
-            const tipo = document.getElementById("tipoAyuda").value;
-            const monto = parseFloat(document.getElementById("monto").value) || 0;
-            const donante = { nombre, correo, empresa, tipo, monto };
-            donantes.push(donante);
-            localStorage.setItem("donantes", JSON.stringify(donantes));
-            document.getElementById("mensaje").innerText = "Gracias por apoyar el proyecto.";
-            form.reset();
-            mostrarDonantes();
-            actualizarProgreso();
-        });
-    }
-
-    function mostrarDonantes() {
-        if (!lista) return;
-        lista.innerHTML = "";
-        donantes.forEach(d => {
-            const li = document.createElement("li");
-            li.textContent = `${d.nombre} (${d.empresa || "Independiente"}) - ${d.tipo}`;
-            lista.appendChild(li);
-        });
-    }
-
-    function actualizarProgreso() {
-        const barra = document.getElementById("barraProgreso");
-        const porcentajeTexto = document.getElementById("porcentaje");
-        if (!barra || !porcentajeTexto) return;
-        const meta = 1000000;
-        let total = 0;
-        donantes.forEach(d => { total += d.monto; });
-        let porcentaje = (total / meta) * 100;
-        if (porcentaje > 100) { porcentaje = 100; }
-        barra.style.width = porcentaje + "%";
-        porcentajeTexto.innerText = "Recaudado: RD$" + total + " (" + porcentaje.toFixed(1) + "%)";
-    }
+    let usuarios = storage.get("usuarios");
+    let donantes = storage.get("donantes");
 
     /* ==========================================
-       NUEVO: FORMULARIO DE AYUDA (Contribución)
+       SISTEMA DE USUARIOS (REGISTRO Y LOGIN)
     ========================================== */
-    const ayudaForm = document.getElementById('ayudaForm');
-    const mensajeExito = document.getElementById('confirmacion');
+    const handleUserForm = (formId, callback) => {
+        const form = document.getElementById(formId);
+        if (form) form.addEventListener("submit", callback);
+    };
 
-    if (ayudaForm) {
-        ayudaForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const nombre = document.getElementById('nombre').value;
-            const correo = document.getElementById('correo').value;
-            const tipo = document.getElementById('tipoDonacion').value;
+    // Registro
+    handleUserForm("registroForm", (e) => {
+        e.preventDefault();
+        const fields = {
+            nombre: document.getElementById("registroNombre").value.trim(),
+            correo: document.getElementById("registroCorreo").value.trim(),
+            password: document.getElementById("registroPassword").value
+        };
+        const mensaje = document.getElementById("registroMensaje");
 
-            if (nombre && correo && tipo) {
-                mensajeExito.style.display = 'block';
-                ayudaForm.reset();
-                setTimeout(() => {
-                    mensajeExito.style.display = 'none';
-                }, 5000);
-            }
-        });
-    }
+        if (Object.values(fields).some(val => !val)) {
+            mensaje.innerText = "⚠️ Por favor rellena todos los campos.";
+            return;
+        }
 
-});
+        usuarios.push(fields);
+        storage.set("usuarios", usuarios);
+        
+        mensaje.innerText = "✅ Cuenta creada correctamente.";
+        e.target.reset();
+    });
+
+    // Login
+    handleUserForm("loginForm", (e) => {
+        e.preventDefault();
+        const correo = document.getElementById("loginCorreo").value.trim();
+        const password = document.getElementById("loginPassword").value;
+        const mensaje = document.getElementById("loginMensaje");
+
+        const usuario = usuarios.find(u => u.correo === correo && u.password === password);
+        
+        if (usuario) {
+            mensaje.innerText = `✨ Bienvenido de nuevo, ${usuario.nombre}`;
+            mensaje.style.color = "#28a745";
+        } else {
+            mensaje.innerText = "❌ Credenciales incorrectas.";
+            mensaje.style.color = "#d9534f";
+        }
+    });
+
+    /* ==========================================
+       SISTEMA DE DONACIONES
+    ========================================== */
+    const donacionForm = document.getElementById("donacionForm");
+
+    const actualizarInterfazDonaciones = (animar = false) => {
+        const lista = document.getElementById("listaDonantes");
+        const barra = document.getElementById("barraProgreso");
+        const texto = document.getElementById("porcentaje");
+
+        if (lista) {
+            lista.innerHTML = donantes.slice(-5).map(d => 
+                `<li class="animate-fade-in">${d.nombre} (${d.empresa || "Independiente"}) - ${d.tipo}</li>`
+            ).join('');
+        }
+
+        const totalActual = donantes.reduce((sum, d) => sum + d.monto, 0);
+        const porcentaje =
