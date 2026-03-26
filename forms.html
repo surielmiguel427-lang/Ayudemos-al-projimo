@@ -2,10 +2,37 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="styles.css">
     <title>Donar - Ayudemos al Prójimo</title>
+    <style>
+        /* --- ANIMACIONES --- */
+        .form-reveal {
+            opacity: 0;
+            transform: translateY(50px); /* Empieza un poco más abajo */
+            transition: all 1.2s cubic-bezier(0.21, 1.02, 0.73, 1); /* Movimiento suave */
+        }
+
+        .form-reveal.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Efecto Hover para el botón */
+        .btn-donar:hover {
+            background-color: #1A3922 !important; /* Cambia a verde oscuro */
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .btn-donar:active {
+            transform: translateY(0);
+        }
+
+        /* Hover para los links del nav */
+        nav a { text-decoration: none; transition: 0.3s; }
+        nav a:hover { color: #f0c040 !important; }
+    </style>
 </head>
-<body style="background-color: #FFFFFF; color: #1A3922; font-family: sans-serif; margin: 0;">
+<body style="background-color: #FFFFFF; color: #1A3922; font-family: sans-serif; margin: 0; overflow-x: hidden;">
     
     <header style="background-color: #1A3922; color: white; padding: 20px; text-align: center;">
         <h1>AYUDEMOS AL PRÓJIMO</h1>
@@ -19,7 +46,7 @@
     </header>
 
     <main style="padding: 40px 20px;">
-        <section style="max-width: 600px; margin: 0 auto; border: 2px solid #1A3922; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        <section class="form-reveal" style="max-width: 600px; margin: 0 auto; border: 2px solid #1A3922; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); background: white;">
             
             <div style="background-color: #1A3922; color: white; padding: 15px; text-align: center;">
                 <h2 style="margin: 0;">Formulario de Donación</h2>
@@ -37,8 +64,8 @@
                     <label style="display: block; font-weight: bold; margin-bottom: 8px;">¿Qué deseas donar?</label>
                     <select name="tipo_donacion" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; background: white;">
                         <option value="alimentos">Alimentos no perecederos</option>
-                        <option value="árboles">Arboles de cacao/de Limoón, etc..</option>
-                        <option value="materiales de construcción">Cemento/Mader/Materiales de construcción</option>
+                        <option value="árboles">Árboles de cacao / Limón, etc.</option>
+                        <option value="materiales">Materiales de construcción</option>
                         <option value="económico">Aporte Económico</option>
                         <option value="otro">Otros</option>
                     </select>
@@ -54,7 +81,7 @@
                     <input type="tel" name="telefono" placeholder="809-000-0000" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
                 </div>
 
-                <button type="submit" style="background-color: #78350F; color: white; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1em; font-weight: bold; transition: 0.3s;">
+                <button type="submit" class="btn-donar" style="background-color: #78350F; color: white; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1em; font-weight: bold; transition: 0.3s; outline: none;">
                     Registrar Donación
                 </button>
             </form>
@@ -62,8 +89,22 @@
     </main>
 
     <footer style="text-align: center; padding: 20px; color: #555;">
-        <p>Misión ILAC & Colegio Intelecto - 2026</p>
+        <p>© Misión ILAC & Colegio Intelecto - 2026</p>
     </footer>
 
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Observar el contenedor del formulario
+        document.querySelectorAll('.form-reveal').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
